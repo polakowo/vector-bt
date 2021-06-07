@@ -379,8 +379,8 @@ def execute_order_nb(state: ProcessOrderState, order: Order) -> tp.Tuple[Execute
         raise ValueError("position is negative but order.direction is Direction.LongOnly")
     if order.direction == Direction.ShortOnly and position > 0:
         raise ValueError("position is positive but order.direction is Direction.ShortOnly")
-    if not np.isfinite(order.price) or order.price <= 0:
-        raise ValueError("order.price must be finite and greater than 0")
+    if not np.isfinite(order.price) or order.price < 0:
+        raise ValueError("order.price must be finite and greater than or equal to 0")
     if not np.isfinite(order.fees) or order.fees < 0:
         raise ValueError("order.fees must be finite and 0 or greater")
     if not np.isfinite(order.fixed_fees) or order.fixed_fees < 0:
